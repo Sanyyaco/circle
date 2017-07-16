@@ -2,6 +2,7 @@ package ru.geekbrains.circles;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 14.07.2017.
@@ -25,9 +26,11 @@ public class GameWindow extends JFrame {
     private Sprite[] sprites = new Sprite[10];
 
     private GameWindow(){
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(POS_X,POS_Y,WIDTH,HEIGHT);
         GameCanvas gameCanvas = new GameCanvas(this);
+
         add(gameCanvas);
         createBalls();
         setVisible(true);
@@ -39,6 +42,26 @@ public class GameWindow extends JFrame {
         }
     }
 
+    void addBall(){
+
+        if (!Arrays.asList(sprites).contains(null)){
+            Sprite[] newSprite = sprites.clone();
+            sprites = new Sprite[newSprite.length*2];
+            for (int i = 0; i < newSprite.length ; i++) {
+                sprites[i] = newSprite[i];
+            }
+        }
+
+        for (int i = 0; i < sprites.length ; i++) {
+            if(sprites[i]== null){
+                sprites[i] = new Ball();
+                break;
+            }
+        }
+
+
+    }
+
     void onDrawFrame(GameCanvas gameCanvas, Graphics g, float deltaTime){
         update(gameCanvas,deltaTime);
         draw(gameCanvas,g);
@@ -46,12 +69,14 @@ public class GameWindow extends JFrame {
 
     private void update(GameCanvas gameCanvas, float deltaTime){
         for (int i = 0; i < sprites.length; i++) {
+            if(sprites[i] == null) continue;
             sprites[i].update(gameCanvas,deltaTime);
         }
     }
 
     private void draw(GameCanvas gameCanvas, Graphics g){
         for (int i = 0; i < sprites.length; i++) {
+            if(sprites[i] == null) continue;
             sprites[i].render(gameCanvas,g);
         }
     }
