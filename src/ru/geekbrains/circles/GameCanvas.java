@@ -37,9 +37,6 @@ public class GameCanvas extends JPanel {
         float deltaTime = (currentTime - lastFrameTime) * 1e-9f;
         lastFrameTime = currentTime;
 
-        background.setWidth(this.getWidth());
-        background.setHeight(this.getHeight());
-        background.setBackground(this,g,deltaTime);
         gameWindow.onDrawFrame(this, g,deltaTime);
 
 

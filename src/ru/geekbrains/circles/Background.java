@@ -7,38 +7,27 @@ import java.awt.*;
  */
 public class Background extends Sprite {
 
-    private int xPos = 0;
-    private int yPos = 0;
-    private int width = 200;
-    private int height = 200;
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
+    private float time;
+    private static final float AMPLITUDE = 255f/2f;
+    private Color color;
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
+    public Background() {
 
-    public void setBackground(GameCanvas gameCanvas, Graphics g, float deltaTime){
-        this.render(gameCanvas,g);
-        this.update(gameCanvas,deltaTime);
     }
 
     @Override
     void update(GameCanvas gameCanvas, float deltaTime) {
+        time += deltaTime;
+        int red = Math.round(AMPLITUDE * (1 + (float)Math.sin(time)));
+        int green = Math.round(AMPLITUDE * (1 + (float)Math.sin(time * 2f)));
+        int blue = Math.round(AMPLITUDE * (1 + (float)Math.sin(time * 3f)));
+        color = new Color(red,green,blue);
+
     }
 
     @Override
     void render(GameCanvas gameCanvas,Graphics g) {
-        Color color;
-        color = setColor();
-        g.setColor(color);
-        g.fillRect(xPos,yPos,width,height);
-    }
-
-    private Color setColor(){
-        return new Color((int) (Math.random() * 256f), (int) (Math.random() * 256f),
-                (int) (Math.random() * 256f));
+        gameCanvas.setBackground(color);
     }
 }

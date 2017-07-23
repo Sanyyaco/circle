@@ -32,12 +32,13 @@ public class GameWindow extends JFrame {
         GameCanvas gameCanvas = new GameCanvas(this);
 
         add(gameCanvas);
-        createBalls();
+        initGame();
         setVisible(true);
     }
 
-    private void createBalls(){
-        for (int i = 0; i < sprites.length ; i++) {
+    private void initGame(){
+        sprites[0] = new Background();
+        for (int i = 1; i < sprites.length ; i++) {
             sprites[i] = new Ball();
         }
     }
@@ -58,7 +59,9 @@ public class GameWindow extends JFrame {
                 break;
             }
         }
+    }
 
+    void removeBall(){
 
     }
 
