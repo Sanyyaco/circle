@@ -12,10 +12,13 @@ public class Solution2 {
         private static Map<String,Set<String>> phoneBook =new HashMap<>();
 
         public void add(String name, String phoneNumber){
-            phoneList = new HashSet<>();
-            phoneList.add(phoneNumber);
 
-           if (phoneBook.get(name) == null) phoneBook.put(name,phoneList);
+
+           if (phoneBook.get(name) == null) {
+               phoneList = new HashSet<>();
+               phoneList.add(phoneNumber);
+               phoneBook.put(name,phoneList);
+           }
                 else{
                     phoneList = phoneBook.get(name);
                     phoneList.add(phoneNumber);
